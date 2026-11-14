@@ -1839,47 +1839,54 @@ details[open] .accordion__icon::after {
   }
 }
 
-/* ---------- Quote band ---------- */
-.quote-band {
-  position: relative;
-  display: grid;
-  min-height: min(92vh, 760px);
-  isolation: isolate;
+/* ---------- Quote ----------
+   One compact Iris Gleam tile in the page container (same family as the service
+   tiles): the quote large on the left, the name on its baseline at the right.
+   It is its own block: a full section space below the tile, then a hairline at
+   container width, then Lederskab's own top spacing. Both sit on the canvas, so
+   the hairline does the job a band change does elsewhere. */
+.quote {
+  padding-top: var(--section-space);
 }
-.quote-band__media {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
+.quote > .container::after {
+  content: "";
+  display: block;
+  height: 1px;
+  margin-top: var(--section-space);
+  background: var(--line);
 }
-.quote-band__media[data-reveal='image'],
-.quote-band__media[data-reveal='image'].is-in {
-  clip-path: none;
-}
-.quote-band__media picture,
-.quote-band__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 40%;
-}
-.quote-band__media img {
-  filter: grayscale(1) brightness(0.55);
-}
-.quote-band__inner {
-  display: flex;
-  align-items: flex-end;
-  padding-block: var(--section-space);
-}
-.quote-band__card {
+.quote__tile {
   display: grid;
   gap: var(--spacing-32);
-  max-width: 520px;
-}
-.quote-band__quote {
+  margin: 0;
+  padding: var(--spacing-40) var(--card-padding);
+  border-radius: var(--radius-featurecards);
+  background: var(--color-iris-gleam);
   color: var(--color-void);
-  line-height: 1.08;
-  font-size: clamp(28px, 3vw, var(--text-heading-lg));
+}
+.quote__tile blockquote {
+  margin: 0;
+}
+.quote__text {
+  max-width: 24ch;
+  margin: 0;
+  font-family: var(--font-lyon-display);
+  font-weight: var(--font-weight-display);
+  font-size: clamp(26px, 3vw, var(--text-heading-lg));
+  line-height: 1.12;
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+.quote__by {
+  color: var(--color-void);
+}
+@media (min-width: 900px) {
+  .quote__tile {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--spacing-60);
+    padding: var(--spacing-60);
+  }
 }
 
 /* ---------- Leadership ---------- */
@@ -1893,9 +1900,10 @@ details[open] .accordion__icon::after {
   border-radius: var(--radius-featurecards);
   aspect-ratio: 4 / 3;
 }
-/* Same panel and line language as the Tilgang motifs */
+/* Same line language as the Tilgang motifs, on a solid Deep Iris tile
+   (a DS chromatic fill, as on the "Spirituel vejledning" service card) */
 .leadership__figure {
-  background: var(--gradient-sky-atmosphere);
+  background: var(--color-deep-iris);
 }
 .leadership__body {
   display: grid;
